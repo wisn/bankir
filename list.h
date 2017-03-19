@@ -18,7 +18,7 @@ address allocate(infotype x)
   return P;
 }
 
-void deallocate(address P)
+void deallocate(address &P)
 {
   delete P;
 }
@@ -29,6 +29,129 @@ bool isEmpty(List L)
   else return false;
 }
 
+address findElm(List L, infotype x)
+{
+  address P = first(L);
+  while (found (P) && info(P) != x) P = next(P);
 
+  return P;
+}
+
+address getPrecAddr(List L, address Prec)
+{
+  address P = first(L);
+  while (found (P) && P != Prec) P = next(P);
+
+  return P;
+}
+
+void insertEmpty(List &L, address P)
+{
+  if (isEmpty(L))
+  {
+    first(L) = P;
+    last(L)  = P;
+    next(P)  = Nil;
+    prev(P)  = Nil;
+  }
+}
+
+void insertFirst(List &L, address P)
+{
+  if (isEmpty(L)) insertEmpty(L, P);
+  else
+  {
+    next(P)  = first(L);
+    prev(P)  = Nil;
+    first(L) = P;
+  }
+}
+
+void insertLast(List &L, address P)
+{
+  if (isEmpty(L)) insertEmpty(L, P);
+  else
+  {
+    next(P)       = Nil;
+    prev(P)       = last(L);
+    next(last(L)) = P;
+    last(L)       = P;
+  }
+}
+
+void insertAfter(List &L, address Prec, address P)
+{
+  if (not isEmpty(L))
+  {
+    address Q = getPrecAddr(L, Prec);
+    if (found (Q))
+    {
+      next(P)       = next(Q);
+      prev(P)       = Q;
+      prev(next(Q)) = P;
+      next(Q)       = P;
+    }
+  }
+}
+
+void deleteSingle(List &L, address &P)
+{
+  if (not isEmpty(L) && single (L))
+  {
+    P        = first(L);
+    first(L) = Nil;
+    last(L)  = Nil;
+    deallocate(P);
+  }
+}
+
+void deleteFirst(List &L, address &P)
+{
+  if (not isEmpty(L))
+  {
+    if (single (L)) deleteSingle(L, P);
+    else
+    {
+      P              = first(L);
+      first(L)       = next(P);
+      prev(first(L)) = Nil;
+      next(P)        = Nil;
+      deallocate(P);
+    }
+  }
+}
+
+void deleteLast(List &L, address &P)
+{
+  if (not isEmpty(L))
+  {
+    if (single (L)) deleteSingle(L, P);
+    else
+    {
+      P             = last(L);
+      last(L)       = prev(P);
+      next(last(L)) = Nil;
+      prev(P)       = Nil;
+      deallocate(P);
+    }
+  }
+}
+
+void deleteAfter(List &L, address Prec, address &P)
+{
+  if (not isEmpty(L))
+  {
+    P = getPrecAddr(L, Prec);
+    if (found (P) && next(P) != Nil)
+    {
+      P             = next(P);
+      prev(next(P)) = prev(P);
+      next(prev(P)) = next(P);
+      next(P)       = Nil;
+      prev(P)       = Nil;
+      deallocate(P);
+    }
+  }
+}
 
 #endif

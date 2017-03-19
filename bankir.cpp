@@ -17,6 +17,15 @@ int main()
   List L;
   createList(L);
 
-  cout << "Hello, World!" << endl;
+  cout << "Bankir 1.0 - Telkom University. ";
+  cout << "Type \"help\" for more information." << endl << endl;
+
+  string command;
+  cout << "(main)>> ";
+  while (getline(cin, command) && command != "exit")
+  {
+    if (command == "help") showHelp();
+    cout << "(main)>> ";
+  }
   return 0;
 }
