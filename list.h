@@ -25,7 +25,7 @@ void deallocate(address &P)
 
 bool isEmpty(List L)
 {
-  if (not found (first(L))) return true;
+  if (not (found (first(L)))) return true;
   else return false;
 }
 

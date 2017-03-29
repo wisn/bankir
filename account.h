@@ -13,7 +13,7 @@ void createAccountList(accountList &LA)
 addrAccount allocateAccount(infoTypeAccount x)
 {
   addrAccount P = new elmListAccount;
-  info(P)        = x;
+  info(P)       = x;
 
   return P;
 }
@@ -25,7 +25,7 @@ void deallocateAccount(addrAccount &P)
 
 bool isEmptyAccount(accountList LA)
 {
-  if (not found (first(LA))) return true;
+  if (not (found (first(LA)))) return true;
   else return false;
 }
 

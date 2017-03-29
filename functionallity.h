@@ -2,7 +2,28 @@
 #define BANKIR_FUNCTIONALLITY_INCLUDED
 
 #include <iostream>
+#include <string>
+#include <sstream>
+#include <algorithm>
+#include <iterator>
+#include <vector>
 using namespace std;
+
+void parse(string input, string &command, vector <string> &arguments)
+{
+  vector <string> tokens, tail;
+  istringstream iss(input);
+  copy(istream_iterator <string> (iss),
+       istream_iterator <string> (),
+       back_inserter(tokens));
+  
+  command   = tokens.front();
+
+  if (tokens.size() < 2) tail = vector <string> ();
+  else tail = vector <string> (tokens.begin() + 1, tokens.end());
+
+  arguments = tail;
+}
 
 void showHelp()
 {
@@ -24,6 +45,31 @@ void showHelp()
        << "   delete a 2" << endl
        << "   This will remove Account with ID 2." << endl
        << endl;
+}
+
+void showInfo()
+{
+  cout << "Displaying info..." << endl;
+}
+
+void doInsert()
+{
+  cout << "Do insert here..." << endl;
+}
+
+void doDelete()
+{
+  cout << "Do delete here..." << endl;
+}
+
+void doUpdate()
+{
+  cout << "Do update here..." << endl;
+}
+
+void doShow()
+{
+  cout << "Do show here..." << endl;
 }
 
 #endif

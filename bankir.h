@@ -11,7 +11,7 @@ using namespace std;
 #define prev(P)    P->prev
 #define info(P)    P->info
 #define found(P)   P != Nil
-#define single(L)  not found (next(first(L)))
+#define single(L)  not (found (next(first(L))))
 
 /*! Customer */
   struct infoTypeCustomer {

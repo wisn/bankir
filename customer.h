@@ -25,7 +25,7 @@ void deallocateCustomer(addrCustomer &P)
 
 bool isEmptyCustomer(customerList LC)
 {
-  if (not found (first(LC))) return true;
+  if (not (found (first(LC)))) return true;
   else return false;
 }
 
