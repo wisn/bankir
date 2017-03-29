@@ -41,6 +41,7 @@ void showHelp()
        << "   delete [c|a] <id>        Delete data by their ID" << endl
        << "   update [c|a] <id>        Update data by their ID" << endl
        << "   show   [c|a] <id>        Show data by their ID" << endl
+       << "   exit                     Close this program" << endl
        << endl
        << " Examples" << endl
        << "   insert c" << endl
