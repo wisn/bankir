@@ -29,13 +29,13 @@ bool isEmpty(List L)
   else return false;
 }
 
-address findElm(List L, infotype x)
+/*address findElm(List L, infotype x)
 {
   address P = first(L);
   while (found (P) && info(P) != x) P = next(P);
 
   return P;
-}
+}*/
 
 address getPrecAddr(List L, address Prec)
 {
@@ -151,6 +151,24 @@ void deleteAfter(List &L, address Prec, address &P)
       prev(P)       = Nil;
       deallocate(P);
     }
+  }
+}
+
+void showAllList(List L)
+{
+  address P = first(L);
+  unsigned long int i, n;
+  while (found (P))
+  {
+    cout << "Customer ID: " << info(customer(P)).id << endl;
+
+    n = account(P).size();
+    for (i = 0; i < n; i++)
+    {
+      cout << "Account ID: " << info(account(P).at(i)).id << endl;
+    }
+
+    P = next(P);
   }
 }
 

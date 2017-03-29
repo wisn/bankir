@@ -154,4 +154,23 @@ void deleteAfterCustomer(customerList &LC, addrCustomer Prec, addrCustomer &P)
   }
 }
 
+void showCustomer(addrCustomer P)
+{
+  cout << "ID: "   << info(P).id << endl
+       << "Age: "  << info(P).age << endl
+       << "Name: " << info(P).name << endl;
+}
+
+void showAllCustomer(customerList LC)
+{
+  addrCustomer P = first(LC);
+  while (found (P))
+  {
+    cout << "ID: "   << info(P).id << endl
+         << "Age: "  << info(P).age << endl
+         << "Name: " << info(P).name << endl;
+    P = next(P);
+  }
+}
+
 #endif

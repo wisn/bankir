@@ -2,6 +2,7 @@
 #define BANKIR_HEADER_INCLUDED
 
 #include <iostream>
+#include <vector>
 using namespace std;
 
 #define Nil        NULL
@@ -53,10 +54,15 @@ using namespace std;
   };
 
 /*! List */
-  #define account(P)  P->account
-  #define customer(P) P->customer
+  #define account(P)  info(P).account
+  #define customer(P) info(P).customer
 
-  typedef unsigned long int infotype;
+  struct infotype {
+    unsigned long int id;
+    addrCustomer customer;
+
+    vector <addrAccount>  account;
+  };
 
   typedef struct elmList *address;
 
@@ -64,8 +70,6 @@ using namespace std;
     infotype     info;
     address      next;
     address      prev;
-    addrAccount  account;
-    addrCustomer customer;
   };
 
   struct List {

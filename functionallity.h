@@ -11,18 +11,22 @@ using namespace std;
 
 void parse(string input, string &command, vector <string> &arguments)
 {
-  vector <string> tokens, tail;
-  istringstream iss(input);
-  copy(istream_iterator <string> (iss),
-       istream_iterator <string> (),
-       back_inserter(tokens));
-  
-  command   = tokens.front();
+  if (input.length() > 0)
+  {
+    vector <string> tokens, tail;
+    istringstream iss(input);
+    copy(istream_iterator <string> (iss),
+        istream_iterator <string> (),
+        back_inserter(tokens));
+    
+    command   = tokens.front();
 
-  if (tokens.size() < 2) tail = vector <string> ();
-  else tail = vector <string> (tokens.begin() + 1, tokens.end());
+    if (tokens.size() < 2) tail = vector <string> ();
+    else tail = vector <string> (tokens.begin() + 1, tokens.end());
 
-  arguments = tail;
+    arguments = tail;
+  }
+  else command   = "";
 }
 
 void showHelp()

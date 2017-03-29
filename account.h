@@ -154,4 +154,21 @@ void deleteAfterAccount(accountList &LA, addrAccount Prec, addrAccount &P)
   }
 }
 
+void showAccount(addrAccount P)
+{
+  cout << "ID: "      << info(P).id << endl
+       << "Balance: " << info(P).balance << endl;
+}
+
+void showAllAccount(accountList LA)
+{
+  addrAccount P = first(LA);
+  while (found (P))
+  {
+    cout << "ID: "      << info(P).id << endl
+         << "Balance: " << info(P).balance << endl;
+    P = next(P);
+  }
+}
+
 #endif
