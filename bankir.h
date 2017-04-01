@@ -37,7 +37,7 @@ using namespace std;
 /*! Account */
   struct infoTypeAccount {
     unsigned long int id, balance;
-    unsigned int pointed;
+    vector <unsigned long int> cid;
   };
 
   typedef struct elmListAccount *addrAccount;
