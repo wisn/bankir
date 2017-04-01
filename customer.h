@@ -29,6 +29,14 @@ bool isEmptyCustomer(customerList LC)
   else return false;
 }
 
+addrCustomer findCustomerByID(customerList LC, unsigned long int id)
+{
+  addrCustomer P = first(LC);
+  while (found (P) && info(P).id != id) P = next(P);
+
+  return P;
+}
+
 /*addrCustomer findElmCustomer(customerList LC, infoTypeCustomer x)
 {
   addrCustomer P = first(LC);

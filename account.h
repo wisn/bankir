@@ -29,6 +29,14 @@ bool isEmptyAccount(accountList LA)
   else return false;
 }
 
+addrAccount findAccountByID(accountList LA, unsigned long int id)
+{
+  addrAccount P = first(LA);
+  while (found (P) && info(P).id != id) P = next(P);
+
+  return P;
+}
+
 /*addrAccount findElmAccount(accountList LA, infoTypeAccount x)
 {
   addrAccount P = first(LA);

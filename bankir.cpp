@@ -4,7 +4,7 @@
 #include "customer.h"
 #include "account.h"
 #include "list.h"
-#include "functionallity.h"
+#include "functionallity.cpp"
 using namespace std;
 
 int main()
@@ -40,6 +40,7 @@ int main()
     else if (command == "delete") doDelete();
     else if (command == "update") doUpdate();
     else if (command == "show")   doShow();
+    else if (command == "link")   doLinkList(arguments, LA, L);
     else if (command != "")
       returnMsg(" Can't recognize \"" + command + "\" command!");
     

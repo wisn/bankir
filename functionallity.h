@@ -9,10 +9,6 @@
 */
 
 #include <iostream>
-#include <string>
-#include <sstream>
-#include <algorithm>
-#include <iterator>
 #include <vector>
 using namespace std;
 
@@ -33,25 +29,7 @@ using namespace std;
       command   => "delete"
       arguments => <"c", "2">
 ===================================================================*/
-void parse(string input, string &command, vector <string> &arguments)
-{
-  if (input.length() > 0)
-  {
-    vector <string> tokens, tail;
-    istringstream iss(input);
-    copy(istream_iterator <string> (iss),
-        istream_iterator <string> (),
-        back_inserter(tokens));
-    
-    command   = tokens.front();
-
-    if (tokens.size() < 2) tail = vector <string> ();
-    else tail = vector <string> (tokens.begin() + 1, tokens.end());
-
-    arguments = tail;
-  }
-  else command = "";
-}
+void parse(string input, string &command, vector <string> &arguments);
 
 /*  isNumeric
     ---------
@@ -68,20 +46,7 @@ void parse(string input, string &command, vector <string> &arguments)
       test => false
       tset => true
 ===================================================================*/
-bool isNumeric(string input)
-{
-  unsigned long int i = 0, len = input.length();
-  bool numeric = true;
-  if (len > 0)
-  {
-    while (numeric && i < len)
-    {
-      if (not isdigit(input[i])) numeric = false;
-      i++;
-    }
-  }
-  return numeric;
-}
+bool isNumeric(string input);
 
 /*  checkNumThenAssign
     ------------------
@@ -101,11 +66,7 @@ bool isNumeric(string input)
       val => 1234
       lav =>
 ===================================================================*/
-void checkNumThenAssign(string input, int &val)
-{
-  if (isNumeric(input)) val = stoi(input);
-  else cout << endl << " Please insert a positive number!" << endl << endl;
-}
+void checkNumThenAssign(string input, auto &val);
 
 /*  isWords
     -------
@@ -122,20 +83,7 @@ void checkNumThenAssign(string input, int &val)
       test => true
       tset => false
 ===================================================================*/
-bool isWords(string input)
-{
-  unsigned long int i = 0, len = input.length();
-  bool words = true;
-  if (len > 0)
-  {
-    while (words && i < len)
-    {
-      if (isdigit(input[i])) words = false;
-      i++;
-    }
-  }
-  return words;
-}
+bool isWords(string input);
 
 /*  checkWordsThenAssign
     --------------------
@@ -155,41 +103,28 @@ bool isWords(string input)
       val =>
       lav => "love"
 ===================================================================*/
-void checkWordsThenAssign(string input, string &val)
-{
-  if (isWords(input)) val = input;
-  else cout << endl << " Please insert a words!" << endl << endl;
-}
+void checkWordsThenAssign(string input, string &val);
 
 /*  returnValue
     -----------
     @input          input        Auto
     @return                      Void
 ===================================================================*/
-void returnValue(auto input)
-{
-  cout << endl << " => " << input << endl << endl;
-}
+void returnValue(auto input);
 
 /*  returnString
     ------------
     @input          input        String
     @return                      Void
 ===================================================================*/
-void returnString(string input)
-{
-  cout << endl << " => \"" << input << "\"" << endl << endl;
-}
+void returnString(string input);
 
 /*  returnMsg
     ---------
     @input          input        String
     @return                      Void
 ===================================================================*/
-void returnMsg(string input)
-{
-  cout << endl << input << endl << endl;
-}
+void returnMsg(string input);
 
 /*  joinString
     ----------
@@ -204,50 +139,15 @@ void returnMsg(string input)
     ------
       join => "one two"
 ===================================================================*/
-string joinString(vector <string> input)
-{
-  stringstream ss;
-  for (size_t i = 0; i < input.size(); i++)
-  {
-    if (i > 0) ss << " ";
-    ss << input.at(i);
-  }
-
-  return ss.str();
-}
+string joinString(vector <string> input);
 
 /*  showHelp
     --------
     @return                      Void
 ===================================================================*/
-void showHelp()
-{
-  cout << " Bankir is a CLI based banking system management." << endl
-       << " Keywords: \"c\" stand for Customer, \"a\" stand for Account." << endl
-       << endl
-       << " Commands" << endl
-       << "   help                     Display this message" << endl
-       << "   info                     Display all customer and their account" << endl
-       << "   insert [c|a]             Insert new data" << endl
-       << "   delete [c|a] <id>        Delete data by their ID" << endl
-       << "   update [c|a] <id>        Update data by their ID" << endl
-       << "   show   [c|a] <id>        Show data by their ID" << endl
-       << "   exit                     Close this program" << endl
-       << endl
-       << " Examples" << endl
-       << "   insert c" << endl
-       << "   This will takes you to the Insert Customer sub-program." << endl
-       << endl
-       << "   delete a 2" << endl
-       << "   This will remove Account with ID 2." << endl
-       << endl;
-}
+void showHelp();
 
-
-void showInfo(List L)
-{
-  showAllList(L);
-}
+void showInfo(List L);
 
 /*  doInsertCustomer
     ----------------
@@ -255,87 +155,14 @@ void showInfo(List L)
                     L            List
     @return                      Void
 ===================================================================*/
-void doInsertCustomer(customerList &LC, List &L)
-{
-  int id, age = 0;
-  string name (""), input, attr, val;
-  vector <string> args;
-  addrCustomer P;
-  infoTypeCustomer x;
-  address Q;
-  infotype y;
+void doInsertCustomer(customerList &LC, List &L);
 
-  cout << endl
-       << " Attributes" << endl
-       << " ----------" << endl
-       << " id             Integer    Auto" << endl
-       << " age            Integer    Required" << endl
-       << " name           String     Required" << endl
-       << endl
-       << " Commands" << endl
-       << " --------" << endl
-       << " save           Save data" << endl
-       << " back           Close this interface" << endl
-       << endl;
-  
-  if (isEmpty(L)) id = 1;
-  else id = info(last(L)).id + 1;
-
-  cout << "[insert| c ]>> ";
-  while (getline(cin, input) && input != "back")
-  {
-    parse(input, attr, args);
-
-    if (attr != "" && attr != "save")
-    {
-      if (args.size() < 1)
-      {
-        if      (attr == "id")   returnValue(id);
-        else if (attr == "age")  returnValue(age);
-        else if (attr == "name") returnString(name);
-        else returnMsg(" Attribute didn't exist!");
-      }
-      else
-      {
-        val = args.at(0);
-        if      (attr == "id")   returnValue(id);
-        else if (attr == "age")  checkNumThenAssign(val, age);
-        else if (attr == "name")
-        {
-          val = joinString(args);
-          checkWordsThenAssign(val, name);
-        }
-        else returnMsg(" Attribute didn't exist!");
-      }
-    }
-    else if (attr == "save")
-    {
-      if (id < 1 || age < 1 || name == "")
-        returnMsg(" Please fill out all required data!");
-      else
-      {
-        x.id   = id;
-        x.age  = age;
-        x.name = name;
-        P = allocateCustomer(x);
-        insertLastCustomer(LC, P);
-
-        y.id       = id;
-        y.customer = P;
-        Q = allocate(y);
-        insertLast(L, Q);
-
-        returnMsg(" Saved! Temporary data removed!");
-
-        id   = info(last(L)).id + 1;
-        age  = 0;
-        name = "";
-      }
-    }
-
-    cout << "[insert| c ]>> ";
-  }
-}
+/*  doInsertAccount
+    ---------------
+    @input/output   LA           accountList
+    @return                      Void
+===================================================================*/
+void doInsertAccount(accountList &LA);
 
 /*  doInsert
     --------
@@ -345,30 +172,21 @@ void doInsertCustomer(customerList &LC, List &L)
                     L            List
     @return                      Void
 ===================================================================*/
-void doInsert(vector <string> args, customerList &LC, accountList &LA, List &L)
-{
-  if (args.size() < 1) cout << endl << " Arguments needed!" << endl << endl;
-  else
-  {
-    string opt = args.at(0);
-    if (opt == "c") doInsertCustomer(LC, L);
-    else cout << endl << " Please provides \"c\" or \"a\"!" << endl << endl;
-  }
-}
+void doInsert(vector <string> args, customerList &LC, accountList &LA, List &L);
 
-void doDelete()
-{
-  cout << "Do delete here..." << endl;
-}
+/*  doLinkList
+    ----------
+    @input          args        <String>
+    @input/output   LA           accountList
+                    L            List
+    @return                      Void
+===================================================================*/
+void doLinkList(vector <string> args, accountList &LA, List &L);
 
-void doUpdate()
-{
-  cout << "Do update here..." << endl;
-}
+void doDelete();
 
-void doShow()
-{
-  cout << "Do show here..." << endl;
-}
+void doUpdate();
+
+void doShow();
 
 #endif

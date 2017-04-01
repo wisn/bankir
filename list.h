@@ -29,6 +29,14 @@ bool isEmpty(List L)
   else return false;
 }
 
+address findListByID(List L, unsigned long int id)
+{
+  address R = first(L);
+  while (found (R) && info(R).id != id) R = next(R);
+
+  return R;
+}
+
 /*address findElm(List L, infotype x)
 {
   address P = first(L);
