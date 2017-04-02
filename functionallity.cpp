@@ -446,19 +446,78 @@ void doLinkList(vector <string> args, accountList &LA, List &L)
       addrAccount A = findAccountByID(LA, aid);
       if (found (A))
       {
-        int linked = info(A).cid.size();
-        if (linked < 2)
+        vector <unsigned long int>::iterator linked;
+        linked = find(info(A).cid.begin(), info(A).cid.end(), cid);
+
+        if (linked == info(A).cid.end())
+        {
+          if (info(A).cid.size() < 2)
+          {
+            address R = findListByID(L, cid);
+            if (found (R))
+            {
+              info(A).cid.insert(info(A).cid.end(), cid);
+              info(R).account.insert(info(R).account.end(), A);
+              returnMsg(" Linked successfuly!");
+            }
+            else returnMsg(" Customer not found!");
+          }
+          else returnMsg(" Maximum Account link reached! Max: 2.");
+        }
+        else returnMsg(" Selected Account has been linked before!");
+      }
+      else returnMsg(" Account not found!");
+    }
+    else returnMsg(" Arguments must be an ID!");
+  }
+}
+
+/*  doUnlinkList
+    ------------
+    @input          args        <String>
+    @input/output   LA           accountList
+                    L            List
+    @return                      Void
+===================================================================*/
+void doUnlinkList(vector <string> args, accountList &LA, List &L)
+{
+  if (args.size() < 2) returnMsg(" Need two arguments!");
+  else
+  {
+    if (isNumeric(args.at(0)) && isNumeric(args.at(1)))
+    {
+      unsigned long int aid = stol(args.at(0)),
+                        cid = stol(args.at(1));
+
+      addrAccount A = findAccountByID(LA, aid);
+      if (found (A))
+      {
+        vector <unsigned long int>::iterator linked;
+        linked = find(info(A).cid.begin(), info(A).cid.end(), cid);
+
+        if (linked != info(A).cid.end())
         {
           address R = findListByID(L, cid);
           if (found (R))
           {
-            info(A).cid.insert(info(A).cid.end(), cid);
-            info(R).account.insert(info(R).account.end(), A);
-            returnMsg(" Linked successfuly!");
+            info(A).cid.erase(
+              remove(
+                info(A).cid.begin(), info(A).cid.end(), cid
+              ),
+              info(A).cid.end()
+            );
+            info(R).account.erase(
+              remove(
+                info(R).account.begin(), info(R).account.end(), A
+              ),
+              info(R).account.end()
+            );
+
+            returnMsg(" Unlinked successfuly!");
           }
           else returnMsg(" Customer not found!");
         }
-        else returnMsg(" Maximum Account link reached! Max: 2.");
+        else returnMsg(" Account ID didn't found!\n Perhaps indeed not linked.");
       }
       else returnMsg(" Account not found!");
     }

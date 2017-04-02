@@ -41,6 +41,7 @@ int main()
     else if (command == "update") doUpdate();
     else if (command == "show")   doShow();
     else if (command == "link")   doLinkList(arguments, LA, L);
+    else if (command == "unlink") doUnlinkList(arguments, LA, L);
     else if (command != "")
       returnMsg(" Can't recognize \"" + command + "\" command!");
     

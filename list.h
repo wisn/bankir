@@ -166,18 +166,20 @@ void showAllList(List L)
 {
   address P = first(L);
   unsigned long int i, n;
+  cout << endl;
   while (found (P))
   {
-    cout << "Customer ID: " << info(customer(P)).id << endl;
+    cout << " Customer ID: " << info(customer(P)).id << endl;
 
     n = account(P).size();
     for (i = 0; i < n; i++)
     {
-      cout << "Account ID: " << info(account(P).at(i)).id << endl;
+      cout << " Account ID: " << info(account(P).at(i)).id << endl;
     }
 
     P = next(P);
   }
+  cout << endl;
 }
 
 #endif

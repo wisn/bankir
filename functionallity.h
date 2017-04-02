@@ -183,6 +183,15 @@ void doInsert(vector <string> args, customerList &LC, accountList &LA, List &L);
 ===================================================================*/
 void doLinkList(vector <string> args, accountList &LA, List &L);
 
+/*  doUnlinkList
+    ------------
+    @input          args        <String>
+    @input/output   LA           accountList
+                    L            List
+    @return                      Void
+===================================================================*/
+void doUnlinkList(vector <string> args, accountList &LA, List &L);
+
 void doDelete();
 
 void doUpdate();
