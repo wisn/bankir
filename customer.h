@@ -162,21 +162,37 @@ void deleteAfterCustomer(customerList &LC, addrCustomer Prec, addrCustomer &P)
   }
 }
 
-void showCustomer(addrCustomer P)
+void deleteCustomerByAddress(customerList &LC, addrCustomer &P)
 {
-  cout << "ID: "   << info(P).id << endl
-       << "Age: "  << info(P).age << endl
-       << "Name: " << info(P).name << endl;
+  if      (single (LC))          deleteSingleCustomer(LC, P);
+  else if (first(LC) == P)       deleteFirstCustomer(LC, P);
+  else if (not (found(next(P)))) deleteLastCustomer(LC, P);
+  else
+  {
+    addrCustomer R = P;
+    prev(next(P))  = prev(R);
+    next(prev(P))  = next(R);
+    next(P)        = Nil;
+    prev(P)        = Nil;
+    deallocateCustomer(P);
+  }
 }
 
 void showAllCustomer(customerList LC)
 {
   addrCustomer P = first(LC);
+
+  cout << endl;
+  if (not (found(P))) cout << " Customer is empty!" << endl << endl;
+
   while (found (P))
   {
-    cout << "ID: "   << info(P).id << endl
-         << "Age: "  << info(P).age << endl
-         << "Name: " << info(P).name << endl;
+    cout << " Customer ID : " << info(P).id << endl
+         << " Age         : " << info(P).age << endl
+         << " Name        : " << info(P).name << endl;
+
+    cout << endl;
+
     P = next(P);
   }
 }

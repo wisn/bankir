@@ -53,6 +53,24 @@ addrAccount getPrecAddrAccount(accountList LA, addrAccount Prec)
   return P;
 }
 
+addrAccount findMaxBalance(accountList LA)
+{
+  addrAccount P = first(LA);
+  
+  if (found (P))
+  {
+    addrAccount max = P;
+    while (found (P))
+    {
+      if (info(P).balance > info(max).balance) max = P;
+      P = next(P);
+    }
+    P = max;
+  }
+
+  return P;
+}
+
 void insertEmptyAccount(accountList &LA, addrAccount P)
 {
   if (isEmptyAccount(LA))
@@ -162,19 +180,57 @@ void deleteAfterAccount(accountList &LA, addrAccount Prec, addrAccount &P)
   }
 }
 
-void showAccount(addrAccount P)
+void deleteAccountByAddress(accountList &LA, addrAccount &P)
 {
-  cout << "ID: "      << info(P).id << endl
-       << "Balance: " << info(P).balance << endl;
+  if      (single (LA))          deleteSingleAccount(LA, P);
+  else if (first(LA) == P)       deleteFirstAccount(LA, P);
+  else if (not (found(next(P)))) deleteLastAccount(LA, P);
+  else
+  {
+    addrAccount  R = P;
+    prev(next(P))  = prev(R);
+    next(prev(P))  = next(R);
+    next(P)        = Nil;
+    prev(P)        = Nil;
+    deallocateAccount(P);
+  }
 }
 
-void showAllAccount(accountList LA)
+void showAccount(addrAccount P)
+{
+  cout << endl
+       << " Account ID : " << info(P).id << endl
+       << " Balance    : " << info(P).balance << endl
+       << endl;  
+}
+
+void showAllAccount(accountList LA, customerList LC)
 {
   addrAccount P = first(LA);
+  addrCustomer AC;
+  int n, i;
+
+  cout << endl;
+  
+  if (not (found(P))) cout << " Account is empty!" << endl << endl;
+
   while (found (P))
   {
-    cout << "ID: "      << info(P).id << endl
-         << "Balance: " << info(P).balance << endl;
+    cout << " Account ID : " << info(P).id << endl
+         << " Balance    : " << info(P).balance << endl;
+    
+    n = info(P).cid.size();
+
+    if (n > 0) cout << "  Linked to:" << endl;
+    for (i = 0; i < n; i++)
+    {
+      AC = findCustomerByID(LC, info(P).cid.at(i));
+      cout << "  - [" << info(AC).id << "] "
+           << info(AC).name << endl;
+    }
+
+    cout << endl;
+
     P = next(P);
   }
 }

@@ -162,6 +162,22 @@ void deleteAfter(List &L, address Prec, address &P)
   }
 }
 
+void deleteListByAddress(List &L, address &P)
+{
+  if      (single (L))           deleteSingle(L, P);
+  else if (first(L) == P)        deleteFirst(L, P);
+  else if (not (found(next(P)))) deleteLast(L, P);
+  else
+  {
+    address      R = P;
+    prev(next(P))  = prev(R);
+    next(prev(P))  = next(R);
+    next(P)        = Nil;
+    prev(P)        = Nil;
+    deallocate(P);
+  }
+}
+
 void showAllList(List L)
 {
   address P = first(L);
@@ -169,14 +185,18 @@ void showAllList(List L)
   cout << endl;
   while (found (P))
   {
-    cout << " Customer ID: " << info(customer(P)).id << endl;
+    cout << " Customer ID : " << info(customer(P)).id << endl
+         << " Age         : " << info(customer(P)).age << endl
+         << " Name        : " << info(customer(P)).name << endl;
 
     n = account(P).size();
     for (i = 0; i < n; i++)
     {
-      cout << " Account ID: " << info(account(P).at(i)).id << endl;
+      cout << "   Account ID : " << info(account(P).at(i)).id << endl
+           << "   Balance    : " << info(account(P).at(i)).balance << endl;
     }
 
+    cout << endl;
     P = next(P);
   }
   cout << endl;

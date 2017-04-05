@@ -4,8 +4,9 @@
 #include "customer.h"
 #include "account.h"
 #include "list.h"
-#include "functionallity.cpp"
+#include "functionallity.h"
 using namespace std;
+
 
 int main()
 {
@@ -18,13 +19,11 @@ int main()
   List L;
   createList(L);
 
-  addrAccount  PA;
-  addrCustomer PC;
-  address      P;
+  addrAccount  AA;
+  addrCustomer AC;
+  address      A;
 
-  cout << endl
-       << " Bankir 1.0 - Telkom University. "
-       << "Type \"help\" for more information." << endl << endl;
+  showHelp();
 
   string input, command;
   vector <string> arguments;
@@ -37,14 +36,17 @@ int main()
     if      (command == "help")   showHelp();
     else if (command == "info")   showInfo(L);
     else if (command == "insert") doInsert(arguments, LC, LA, L);
-    else if (command == "delete") doDelete();
+    else if (command == "delete") doDelete(arguments, LC, LA, L, AC, AA, A);
     else if (command == "update") doUpdate();
-    else if (command == "show")   doShow();
+    else if (command == "show")   doShow(arguments, LC, LA, L);
     else if (command == "link")   doLinkList(arguments, LA, L);
     else if (command == "unlink") doUnlinkList(arguments, LA, L);
+    else if (command == "all")    doAll(arguments, LC, LA);
+    else if (command == "maxa")   doFindMaxBalance(LA, LC);
+    else if (command == "twos")   doTwos(LA, LC);
     else if (command != "")
       returnMsg(" Can't recognize \"" + command + "\" command!");
-    
+
     cout << "[main]>> ";
   }
   return 0;
